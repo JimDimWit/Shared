@@ -21,6 +21,8 @@ Or to disable org wide:
 
 Set-TransportConfig -SmtpClientAuthenticationDisabled $true
 
+Be advised, in current version of this function, you will need to run Disconnect-ExchangeOnline manually to remove residual EOL session.
+
 .LINK
 https://github.com/JimDimWit/Shared
 .LINK
