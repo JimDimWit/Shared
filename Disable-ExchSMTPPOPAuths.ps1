@@ -3,8 +3,32 @@
 Function to disable SMTP and POP client auth methods in exchange online
 .DESCRIPTION
 Function validates ExchangeOnlineManagement module presence and performs the action of removing smtp and pop client auth protocols.
-.INPUTS
+.PARAMETER Identity
+Mailbox entity Exhcange identity
+.EXAMPLE
+Disable-ExchSMTPOPAuths -Identity dim.wit
+.EXAMPLE
+Import-Csv -Path .\Users.csv | ForEach-Object {
+    Disable-ExchSMTPOPAuths -Identity $_
+}
+.NOTES
+Script is designed to take into account the module requirements and connection to Exchange Online.
+If you feel like these steps are unnecessary to your requirements, you should consider just using the following:
 
+Set-CASMailbox -Identity Dim.Wit -SmtpClientAuthenticationDisabled $True -PopEnabled $False
+
+Or to disable org wide: 
+
+Set-TransportConfig -SmtpClientAuthenticationDisabled $true
+
+.LINK
+https://github.com/JimDimWit/Shared
+.LINK
+https://docs.microsoft.com/en-us/exchange/troubleshoot/user-and-shared-mailboxes/pop3-imap-owa-activesync-office-365
+.LINK
+https://docs.microsoft.com/en-us/powershell/exchange/connect-to-exchange-online-powershell?view=exchange-ps
+.LINK
+https://docs.microsoft.com/en-us/powershell/module/exchange/?view=exchange-ps
 
 #>
 Param (
@@ -49,7 +73,7 @@ Process {
         }
     }
 
-    #Check if user has specified
+    Set-CASMailbox -Identity $Identity -SmtpClientAuthenticationDisabled $True -PopEnabled $False
     
 }
 
